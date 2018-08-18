@@ -1,0 +1,126 @@
+<html>
+<body>
+<canvas id="palet"></canvas>
+<img id="source" src="directions.png" style="display: none;">
+<canvas id="edit" style="width: 100%"></canvas>
+<script>
+window.addEventListener("load",function(){
+
+	var palet=document.getElementById("palet");
+	palet.width=100;
+	palet.height=100;
+	var palet_ctx=palet.getContext("2d");
+	var source=document.getElementById("source");
+	var canvas=document.getElementById("edit");
+	var w=source.width;
+	var h=source.height;
+	var rx=-60,ry=0;
+		var lod=0; // level of detail!
+	canvas.width=w;
+	canvas.height=h;
+	canvas.addEventListener("pointermove",showDirection);
+	var ctx=canvas.getContext("2d");
+	ctx.clearRect(0,0,w,h);
+	ctx.drawImage(source,0,0);
+	
+	var imgData=ctx.getImageData(0,0,w,h);
+	
+	var pixels=[];
+	var x,y,d;
+	for(x=0;x<w;x++)
+	{
+		pixels[x]=[];
+		for(y=0;y<h;y++)
+		{
+			var nr=(x+y*w)*4;
+			var o={};
+			o.r=imgData.data[nr];
+			o.g=imgData.data[nr+1];
+			o.b=imgData.data[nr+2];
+			pixels[x][y]=o;
+		}
+	}
+	
+	function getMousePos(canvas, evt) 
+	{
+        var rect = canvas.getBoundingClientRect();
+		var f=canvas.width/rect.width;
+        return {
+          x: (evt.clientX - rect.left)*f,
+          y: (evt.clientY - rect.top)*f
+        };
+      }
+	function showDirection(ev)
+	{
+		// we can easily find a direction by convolving the image:
+		// https://en.wikipedia.org/wiki/Sobel_operator
+		// the direction in X and Y is placed in R and G, B is the SIZE.
+		// to increase noise-robustness: use this: http://www.holoborodko.com/pavel/image-processing/edge-detection/
+		
+		// also directions are findable with:
+		// https://en.wikipedia.org/wiki/Sobel_operator
+		/* var gx=(x-1,y-1)-(x+1,y-1);
+			gx=gx+(x-2,y-0)-(x+2,y-0);
+			gx=gx+(x-1,y-1)-(x+1,y-1);
+			var gy=(x-1,y-1)-(x-1,y+1);
+			gy=gy+(x-0,y-2)-(x-0,y+2);
+			gy=gy+(x-1,y-1)-(x-1,y+1);
+			var dir=Math.atan(gy/gx); */
+		// after that we can do an easy despeckle to reduce small grains (or just BLUR the sucker! with another convolution)
+		// after that we can stroke the area's with contrast in the direction of R and G.
+		
+		// we might want to simulate the convolution by
+		// using a difference globalCompositeOperations and globalAlpha and a slight shift in X or Y!
+		var mousePos = getMousePos(canvas, ev);
+		var  x=Math.round(mousePos.x);
+		var  y=Math.round(mousePos.y);
+		var dist,colormatch, dr,dg,db,r,g,b,dx,dy
+		var x,y,d, nr_of_lod_measurements=0;
+		var r=pixels[x][y].r;
+		var g=pixels[x][y].g;
+		var b=pixels[x][y].b;
+		pixels[x][y].vect={dx:0,dy:0};
+		var sample=2;
+		var max_dist=Math.sqrt(sample*sample*2);
+		var max_color_dist=Math.sqrt(256*256+256*256+256*256);
+		for(dx=-sample;dx<=sample;dx++)
+		for(dy=-sample;dy<=sample;dy++)
+			if(dx!=0 && dy!=0)
+			if((x+dx)>=0 && (x+dx)<w)
+				if((y+dy)>=0 && (y+dy)<h)
+				{
+					dr=pixels[x][y].r-pixels[x+dx][y+dy].r;
+					dg=pixels[x][y].g-pixels[x+dx][y+dy].g;
+					db=pixels[x][y].b-pixels[x+dx][y+dy].b;
+					var color_dist=Math.sqrt(dr*dr+dg*dg+db*db)/max_color_dist;
+					var dist=Math.sqrt(dx*dx+dy*dy)/max_dist;
+					lod+=color_dist; // color difference normalised
+					nr_of_lod_measurements++;
+					colormatch=dist*(1-color_dist);// between 0 and 1
+					pixels[x][y].vect.dx+=dx*colormatch;
+					pixels[x][y].vect.dy+=dy*colormatch;
+				}
+		// normalise the vector.
+		dx=pixels[x][y].vect.dx;
+		dy=pixels[x][y].vect.dy;
+		console.log(JSON.stringify(pixels[x][y]));
+
+		dist=Math.sqrt(dx*dx+dy*dy);
+		if(dist!=0)
+		{
+			pixels[x][y].vect.dx=-dy/dist;
+			pixels[x][y].vect.dy=dx/dist;
+		}
+		
+		var sure=10*dist/max_dist;
+		ctx.drawImage(source,0,0);
+		ctx.beginPath();
+		ctx.moveTo(x-pixels[x][y].vect.dx*sure,y-pixels[x][y].vect.dy*sure);
+		ctx.lineTo(x+pixels[x][y].vect.dx*sure,y+pixels[x][y].vect.dy*sure);
+		ctx.stroke();
+
+	}
+});
+</script>
+</body>
+</html>

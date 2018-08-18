@@ -1,0 +1,177 @@
+<html>
+<body>
+<canvas id="palet"></canvas>
+<img id="source" src="directions.png" style="display: none;">
+<canvas id="edit" style="width: 100%"></canvas>
+<script>
+window.addEventListener("load",function(){
+
+
+	var palet=document.getElementById("palet");
+	palet.width=100;
+	palet.height=100;
+	var palet_ctx=palet.getContext("2d");
+	var source=document.getElementById("source");
+	var canvas=document.getElementById("edit");
+	var w=source.width;
+	var h=source.height;
+	var rx=-60,ry=0;
+		var lod=0; // level of detail!
+	canvas.width=w;
+	canvas.height=h;
+	var ctx=canvas.getContext("2d");
+	ctx.clearRect(0,0,w,h);
+	ctx.drawImage(source,0,0);
+	ctx.fillStyle="rgba(255,255,255,0.2)";
+	ctx.fillRect(0,0,w,h);
+	var pixels=[];
+	var x,y,d;
+	for(x=0;x<100;x++)
+	{
+		pixels[x]=[];
+		for(y=0;y<100;y++)
+		{
+			var nr=(x+y*100)*4;
+			var o={};
+			o.r=imgData.data[nr];
+			o.g=imgData.data[nr+1];
+			o.b=imgData.data[nr+2];
+			pixels[x][y]=o;
+		}
+	}
+	aquirepalet();
+	loop();
+
+
+	function nextRound()
+	{
+		// GO again!
+		source.src=canvas.toDataURL();
+		var w=source.width;
+		var h=source.height;
+		ctx.clearRect(0,0,w,h);
+		ctx.drawImage(source,0,0);
+		ctx.fillStyle="rgba(255,255,255,0.2)";
+		ctx.fillRect(0,0,w,h);
+		rx=-60;
+		ry=0;
+		aquirepalet();
+		loop();
+
+	}
+	function aquirepalet()
+	{
+		if(rx<(w-100)) rx+=60;
+		else if( ry<(h-100))
+		{
+			rx=0;
+			ry+=60;
+		}else{
+			console.log("done");
+			rx=0;
+			ry=0;
+			return true;
+		}
+		// randomly select a region of 100x100 to work on..
+		palet_ctx.drawImage(source,rx,ry,100,100,0,0,100,100);
+		var imgData=palet_ctx.getImageData(0,0,100,100);
+		var x,y,d, nr_of_lod_measurements=0;
+		for(x=0;x<100;x++)
+		{
+			pixels[x]=[];
+			for(y=0;y<100;y++)
+			{
+				var nr=(x+y*100)*4;
+				var o={};
+				o.r=imgData.data[nr];
+				o.g=imgData.data[nr+1];
+				o.b=imgData.data[nr+2];
+				pixels[x][y]=o;
+			}
+		}
+		//also get directions where possible!
+		
+		var dist,colormatch, dr,dg,db,r,g,b,dx,dy
+	
+		for(x=0;x<100;x++)
+		{
+			for(y=0;y<100;y++)
+			{
+				r=pixels[x][y].r;
+				g=pixels[x][y].g;
+				b=pixels[x][y].b;
+				pixels[x][y].vect={dx:0,dy:0};
+				for(dx=-4;dx<=4;dx++)for(dy=-4;dy<=4;dy++)
+				if(dx!=0 && dy!=0)
+				if((x+dx)>=0 && (x+dx)<100)
+				if((y+dy)>=0 && (y+dy)<100)
+				{
+					dr=pixels[x][y].r-pixels[x+dx][y+dy].r;
+					dg=pixels[x][y].g-pixels[x+dx][y+dy].g;
+					db=pixels[x][y].b-pixels[x+dx][y+dy].b;
+					var color_dist=Math.sqrt(dr*dr+dg*dg+db*db);
+					var dist=Math.sqrt(dx*dx+dy*dy);
+					lod+=color_dist/(30); // color difference normalised
+					nr_of_lod_measurements++;
+					colormatch=dist*((256*256*256)-color_dist)/(256*256*256);// between 0 and 1
+					pixels[x][y].vect.dx+=dx*colormatch;
+					pixels[x][y].vect.dy+=dy*colormatch;
+				}
+				// normalise the vector.
+				dx=pixels[x][y].vect.dx;
+				dy=pixels[x][y].vect.dy;
+				dist=Math.sqrt(dx*dx+dy*dy);
+				if(dist!=0)
+				{
+					pixels[x][y].vect.dx=dx/dist;
+					pixels[x][y].vect.dy=dy/dist;
+				}
+			}
+		}
+		lod=lod/nr_of_lod_measurements; // normalised level of detail in THIS segment..
+		if(lod>1) lod=1;
+		if(ry%1000==0 && rx%1000==0)
+		{
+			console.log("rx: "+rx+", ry: "+ry);
+			console.log("level of detail (perc): "+Math.floor(lod*10000)/100);
+		}
+		return false;
+	}
+	
+	function loop()
+	{
+		ctx.globalAlpha=0.5;
+		ctx.lineWidth=2;
+		
+		for(i=0;i<8000;i++)
+		{
+			var x=15+Math.floor(Math.random()*60);
+			var y=15+Math.floor(Math.random()*60);
+			if(rx==0) x=Math.floor(Math.random()*85);
+			if(ry==0) y=Math.floor(Math.random()*85);
+			if(rx>(w-150)) x=15+Math.floor(Math.random()*85);
+			if(ry>(h-150)) y=15+Math.floor(Math.random()*85);
+			ctx.strokeStyle="rgb("+pixels[x][y].r+","+pixels[x][y].g+","+pixels[x][y].b+")";
+			ctx.beginPath();
+			var length=15;//1+Math.random()*1+2*(1-lod); // between 3 and 14!
+			var dx=pixels[x][y].vect.dy*length;
+			var dy=-pixels[x][y].vect.dx*length;
+			//ctx.arc(rx+x,ry+y,5+Math.random()*1,-Math.PI*Math.random(),Math.PI*Math.random());
+			ctx.moveTo(rx+x-dx,ry+y-dy);
+			ctx.lineTo(rx+x+dx,ry+y+dy);
+			ctx.stroke();
+		}
+		var stop=aquirepalet();
+		
+		
+		if(!stop)
+			window.requestAnimationFrame(loop);
+		else{
+		// go for next found after few seconds.
+			//setTimeout(nextRound,5000);
+		}
+	}
+});
+</script>
+</body>
+</html>

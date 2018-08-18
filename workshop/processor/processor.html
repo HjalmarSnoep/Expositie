@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+   
+   <input type="file" onchange="previewFile()"><br>
+   <canvas id="c"></canvas>
+   <script src="filters.js"></script>
+   <script src="processor.js"></script>
+    <script>
+		var original_image;
+		var canvas=document.getElementById("c");
+		var ctx=canvas.getContext("2d");
+		
+		
+		function previewFile() {
+		  var preview = document.querySelector('img');
+		  var file    = document.querySelector('input[type=file]').files[0];
+		  var reader  = new FileReader();
+
+		  reader.addEventListener("load", function () {
+		  var original_image=document.createElement("img");
+			original_image.src = reader.result;
+			canvas.width=original_image.width;
+			canvas.height=original_image.height;
+			ctx.drawImage(original_image,0,0);
+			startProcessing();
+		  }, false);
+
+		  if (file) {
+			reader.readAsDataURL(file);
+		  }
+		}
+    </script>
+    ​​​​</body>
+
+</html>

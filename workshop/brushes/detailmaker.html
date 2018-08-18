@@ -1,0 +1,176 @@
+<html>
+<head>
+</head>
+<body>
+<img id="source" src="sad.jpg" style="display: none;">
+<div id="results">
+<button id="go">cut</button>
+
+</div>
+<canvas id="edit" ></canvas>
+<script>
+window.addEventListener("load",function(){
+
+	var source=document.getElementById("source");
+	var canvas=document.getElementById("edit");
+	var w=source.width;
+	var h=source.height;
+	console.log("image is "+w+"x"+h);
+	canvas.width=w;
+	canvas.height=h;
+	var ctx=canvas.getContext("2d");
+	ctx.drawImage(source,0,0);
+	var rx=5,ry=5;
+	
+	var mouse={x:0,y:0,down:false,rect:{x:0,y:0,w:0,y:0}};
+	canvas.addEventListener("pointerdown",handlePointer);
+	canvas.addEventListener("pointerup",handlePointer);
+	canvas.addEventListener("pointermove",handlePointer);
+	document.getElementById("go").addEventListener("click",cutOut);
+//	loop();
+var nr=0;
+function cutOut()
+{
+	var div=document.createElement("div");
+	var code=document.createElement("code");
+	var c=document.createElement("canvas");
+	c.width=100; // mouse.rect.w;
+	c.height=100; // mouse.rect.h;
+	var ct=c.getContext("2d");
+	var sx=mouse.rect.x;
+	var sy=mouse.rect.y;
+	var sw=mouse.rect.w;
+	var sh=mouse.rect.h;
+	if(sw>sh)
+	{
+		sx=sx+(sw-sh)/2;
+		sw=sh;
+	}else{
+		sy=sy+(sh-sw)/2;
+		sh=sw;
+	}
+	var dx=0;
+	var dy=0;
+	var dw=c.width;
+	var dh=c.height;
+	ct.drawImage(source,sx,sy,sw,sh,dx,dy,dw,dh);
+	// keep the corrected coords (square)!
+	mouse.rect.x=sx;
+	mouse.rect.y=sy;
+	mouse.rect.w=w;
+	mouse.rect.h=h;
+	nr++;
+	var nr_str=""+nr;
+	while(nr_str.length<2) nr_str="0"+nr_str;
+	mouse.rect.image="detail"+nr_str+".png";
+	mouse.rect.title=prompt("title?");
+	code.innerHTML=JSON.stringify(mouse.rect);
+	div.appendChild(c);
+	div.appendChild(code);
+	document.getElementById("results").appendChild(div);
+	
+}
+function convertPointerEvent(e)
+{
+	e = e || window.event;
+	var v = e.touches && e.touches[0] ? e.touches[0] : e;
+
+    var target = e.target || e.srcElement,
+        style = target.currentStyle || window.getComputedStyle(target, null),
+        borderLeftWidth = parseInt(style['borderLeftWidth'], 10),
+        borderTopWidth = parseInt(style['borderTopWidth'], 10),
+        rect = target.getBoundingClientRect(),
+        x = v.clientX - borderLeftWidth - rect.left,
+        y = v.clientY - borderTopWidth - rect.top;
+	e.preventDefault(); // keeps it from caceling, so you can drag..!
+	return {x:x,y:y};
+};
+	function handlePointer(e)
+	{
+		e.preventDefault(); // voorkom browser gedrag.
+		var coord=convertPointerEvent(e);
+		var x=Math.round(coord.x);
+		var y=Math.round(coord.y);
+		switch(e.type)
+		{
+			case "pointerdown":
+				mouse.x=x;
+				mouse.y=y;
+				mouse.x1=x;
+				mouse.y1=y;
+				mouse.down=true;
+				if(mouse.x>mouse.rect.x && mouse.y>mouse.rect.y && mouse.x<(mouse.rect.x+mouse.rect.w) && mouse.y<(mouse.rect.y+mouse.rect.h))
+				{
+					// click inside means move
+					mouse.mode="move";
+				}else
+				{
+					// click outside means recreate!
+					mouse.mode="create";
+				}
+			break;
+			case "pointerup":
+				mouse.down=false;
+				
+				
+			break;
+			case "pointermove":
+				if(mouse.down==true)
+				{
+					var w=mouse.rect.w;
+					var h=mouse.rect.h;
+					if(mouse.mode=="create")
+					{
+						mouse.x=x;
+						mouse.y=y;
+						// draw a little box!
+						var x=mouse.x1;
+						if(mouse.x<mouse.x1) x=mouse.x;
+						var y=mouse.y1;
+						if(mouse.y<mouse.y1) y=mouse.y;
+						w=Math.abs(mouse.x-mouse.x1);
+						h=Math.abs(mouse.y-mouse.y1);
+						mouse.rect={x:x,y:y,w:w,h:h};
+					}else{
+						var dx=x-mouse.x;
+						var dy=y-mouse.y;
+						console.log("move "+dx,dy+" "+JSON.stringify(mouse.rect));
+						mouse.rect.x+=dx;
+						mouse.rect.y+=dy;
+						mouse.x=x;
+						mouse.y=y;
+					}
+					// show the result
+					x=mouse.rect.x;
+					y=mouse.rect.y;
+					w=mouse.rect.w;
+					h=mouse.rect.h;
+					ctx.drawImage(source,0,0);
+					ctx.strokeStyle="#fff";
+					ctx.fillStyle="rgba(0,0,0,0.2)";
+					var area=1000;
+					ctx.lineWidth=5;
+					ctx.fillRect(0,0,source.width,source.height);
+					ctx.strokeRect(mouse.rect.x,mouse.rect.y,mouse.rect.ow,mouse.rect.oh);
+					ctx.strokeRect(x,y,w,h);
+					ctx.beginPath();
+					var arc_r=w/2;
+					if(h/2<arc_r)arc_r=h/2;
+					ctx.arc(x+w/2,y+h/2,arc_r,0,Math.PI*2);
+					ctx.stroke();
+					ctx.strokeStyle="rgba(0,0,0,0.5)";
+					ctx.beginPath();
+					ctx.arc(x+w/2,y+h/2,arc_r+5,0,Math.PI*2);
+					ctx.stroke();
+					ctx.save();
+					ctx.clip();
+					ctx.drawImage(source,0,0);
+					ctx.restore();
+				}
+			break;
+		}
+	}
+});
+</script>
+</body>
+</html>

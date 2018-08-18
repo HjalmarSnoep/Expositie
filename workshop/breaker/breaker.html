@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<script src="lib/jszip.min.js"></script>
+<script src="lib/fileSaver.js"></script>
+</head>
+<body>
+<img id="img" src="angel.png" > <span id="feedback"></span><hr>
+<script>
+window.addEventListener("load", function(){
+
+var piece={};
+piece.w=600; // small!
+piece.h=600;
+var canvas=document.createElement("canvas");
+canvas.width=piece.w;
+canvas.height=piece.h;
+var ctx=canvas.getContext("2d");
+var img=document.getElementById("img");
+function baseName(str)
+{
+   var base = new String(str).substring(str.lastIndexOf('/') + 1); 
+    if(base.lastIndexOf(".") != -1)       
+        base = base.substring(0, base.lastIndexOf("."));
+   return base;
+}
+var zip_name=baseName(img.src);
+console.log("width: "+img.width+"px or "+(2.54*img.width/300)+"cm");
+console.log("height: "+img.height+"px or "+(2.54*img.height/300)+"cm");
+var w=Math.floor((img.width/piece.w)*2)-2; // overlap ongeveer de helft overlap, dus 300 pixels..
+var h=Math.floor((img.height/piece.h)*2)-2;
+console.log("w:"+w+",h:"+h+" total of "+(w*h)+" images");
+
+
+var zip = new JSZip();
+// Add an top-level, arbitrary text file with contents
+//zip.file("Hello.txt", "Hello World\n");
+// Generate a directory within the Zip file structure
+//var imagefolder = zip.folder("images");
+
+
+var x=0,y=0;
+var shift_x=(img.width-piece.w)/w;
+var shift_y=(img.height-piece.h)/h;
+img.style.width="10%";
+loop();
+function loop()
+{
+			// Add a file to the directory, in this case an image with data URI as contents
+			var pct=(x+y*w)/((w*(h+1)));
+			pct=Math.floor(pct*100);
+			document.getElementById("feedback").innerHTML="breaking image "+pct+"%";
+			var sx=x*shift_x;
+			var sy=y*shift_y;
+			ctx.drawImage(img,Math.round(sx),Math.round(sy),piece.w,piece.h,0,0,piece.w,piece.h);
+			var imgData= canvas.toDataURL("image/png");
+			var i=document.createElement("img");
+			i.style.width="25px";
+			document.body.appendChild(i);
+			i.src=canvas.toDataURL("image/png");
+			imgData=imgData.split('base64,')[1];
+			zip.file(zip_name+x+"-"+y+".png",imgData, {base64: true});
+
+	if(x<w) x++;
+	else {
+		if(y<h)
+		{
+			x=0;
+			var br=document.createElement("br");
+			document.body.appendChild(br);
+			y++;
+		}
+		else
+		{
+			document.getElementById("feedback").innerHTML='<button id="save">Download zip</button>';
+			setTimeout(done.bind(this),200);
+			return;
+		}
+	}
+	window.requestAnimationFrame(loop.bind(this));
+}
+function done()
+{
+	document.getElementById("save").addEventListener("click",saveNow.bind(this));
+}
+function saveNow()
+{
+	zip.generateAsync({type:"blob"})
+		.then(function(content) 
+		{
+			// Force down of the Zip file
+			saveAs(content, "images-in.zip");
+		});
+}
+
+// Generate the zip file asynchronously
+/*
+});*/
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<html>
+<body>
+<img id="source" src="directions.png" style="display: none;">
+<canvas id="edit" style="width: 100%"></canvas>
+<script>
+window.addEventListener("load",function(){
+
+	var source=document.getElementById("source");
+	var canvas=document.getElementById("edit");
+	var w=source.width;
+	var h=source.height;
+	console.log("image is "+w+"x"+h);
+	canvas.width=w;
+	canvas.height=h;
+	var ctx=canvas.getContext("2d");
+	ctx.drawImage(source,0,0);
+	var rx=5,ry=5;
+	
+	loop();
+	function loop()
+	{
+				// extract a small region to work on.
+				var perc=Math.floor(10000*(ry*w+rx)/(h*w))/100;
+				console.log("rx: "+rx+", ry: "+ry+", perc: "+perc);
+				var imgData=ctx.getImageData(rx,ry,100,100);
+				var pixels=[];
+				var x,y,d;
+				for(x=0;x<100;x++)
+				{
+					pixels[x]=[];
+					for(y=0;y<100;y++)
+					{
+						var nr=(x+y*100)*4;
+						var o={};
+						o.r=imgData.data[nr];
+						o.g=imgData.data[nr+1];
+						o.b=imgData.data[nr+2];
+						pixels[x][y]=o;
+					}
+				}
+				
+				// now do something to this region 
+				// extract directions based on similarity!
+//				console.log("analysing directions in 4x4 grid start at "+(new Date()).getTime());
+				var dx,dy,dr,dg,db,dist,colormatch,i;
+				for(x=15;x<85;x++)
+				{
+					for(y=15;y<85;y++)
+					{
+						var r=pixels[x][y].r;
+						var g=pixels[x][y].g;
+						var b=pixels[x][y].b;
+						pixels[x][y].vect={dx:0,dy:0};
+						for(dx=-14;dx<=14;dx++)for(dy=-14;dy<=14;dy++)if(dx!=0 && dy!=0)
+						{
+							dr=pixels[x][y].r-pixels[x+dx][y+dy].r;
+							dg=pixels[x][y].g-pixels[x+dx][y+dy].g;
+							db=pixels[x][y].b-pixels[x+dx][y+dy].b;
+							//dist=Math.sqrt(dx*dx+dy*dy);
+							colormatch=((256*256*256)-Math.sqrt(dr*dr+dg*dg+db*db))/(256*256*256);// between 0 and 1
+							pixels[x][y].vect.dx+=dx*colormatch;
+							pixels[x][y].vect.dy+=dy*colormatch;
+						}
+						// normalise the vector.
+						dx=pixels[x][y].vect.dx;
+						dy=pixels[x][y].vect.dy;
+						dist=Math.sqrt(dx*dx+dy*dy);
+						if(dist!=0)
+						{
+							pixels[x][y].vect.dx=dy/dist;
+							pixels[x][y].vect.dy=-dx/dist;
+						}
+					}
+				}
+//				console.log("blurring directions at "+(new Date()).getTime());
+				for(var it=0;it<5;it++)
+				{
+					for(x=15;x<85;x+=1)
+					{
+						for(y=15;y<85;y+=1)
+						{
+							var r=0,g=0,b=0,weight=0,dx,dy;
+							for(i=-8;i<8;i++)
+							{
+								r+=pixels[Math.floor(x+pixels[x][y].vect.dx*i)][Math.floor(y+pixels[x][y].vect.dy*i)].r;
+								g+=pixels[Math.floor(x+pixels[x][y].vect.dx*i)][Math.floor(y+pixels[x][y].vect.dy*i)].g;
+								b+=pixels[Math.floor(x+pixels[x][y].vect.dx*i)][Math.floor(y+pixels[x][y].vect.dy*i)].b;
+								weight++;
+							}
+							pixels[x][y].nr=Math.floor(r/weight); // create a new r, not to influence the r on next iterations..
+							pixels[x][y].ng=Math.floor(g/weight);
+							pixels[x][y].nb=Math.floor(b/weight);
+						}
+					}
+				}
+				
+			/*	
+				// show stripes for direction!
+				for(x=15;x<85;x+=7)
+				{
+					for(y=15;y<85;y+=7)
+					{
+						var r=0,g=0,b=0,weight=0,dx,dy;
+						for(i=-4;i<4;i++)
+						{
+							pixels[Math.floor(x+pixels[x][y].vect.dx*i)][Math.floor(y+pixels[x][y].vect.dy*i)].nr=255;
+							pixels[Math.floor(x+pixels[x][y].vect.dx*i)][Math.floor(y+pixels[x][y].vect.dy*i)].ng=0;
+						}
+					}
+				}		*/		
+//				console.log("putting back blurred region at "+(new Date()).getTime());
+				// we need a soft edge, actually, so this doesn't really work.
+				// and put it back..
+				for(x=0;x<100;x++)
+				{
+					for(y=0;y<100;y++)
+					{
+						var nr=(x+y*100)*4;
+						o=pixels[x][y];
+						if(typeof(o.nr)!="undefined")
+						{	
+							imgData.data[nr]=o.nr;
+							imgData.data[nr+1]=o.ng;
+							imgData.data[nr+2]=o.nb;
+						}
+					}
+				}
+//				console.log("displaying at "+(new Date()).getTime());
+				ctx.putImageData(imgData,rx,ry);
+				console.log("done region at "+(new Date()).getTime());
+		
+		if(rx<(w-105))
+		{
+			rx+=65;
+			window.requestAnimationFrame(loop);
+		}else
+		{
+			if(ry<(h-105))
+			{
+				ry+=65;
+				rx=5;
+				window.requestAnimationFrame(loop);
+			}else{
+				// done
+				console.log("DONE!");
+			}
+		}
+
+		
+	}
+});
+</script>
+</body>
+</html>
