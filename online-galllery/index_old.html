@@ -1,0 +1,243 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="gallery.css">
+</head>
+<body>
+
+<section id="gallery">
+	<div class="painting" id="thumbs">
+	
+	</div>
+	<div class="desc">
+		<h1>Zoektocht</h1>
+		<button onClick="show('gallery')" class="button">back</button>
+		<button onClick="show('angel')" class="button">next</button>
+		<h4>Kunstenaar</h4><p>Sinds mijn jeugd ben ik gefascineerd door droombeelden en het maken van beelden met de computer, door te programmeren en later (in mijn tienerjaren) te schilderen met photoshop.<hr>Hjalmar Snoep, game designer, 46 jaar.</p>
+		<h4>Onderwerpen</h4>
+		<p>Een weergave van de beelden die de maker tegenkwam tijdens een gedwongen reis naar binnen. De meeste van deze beelden zijn gemaakt bij wijze van therapie. Vervolgens werden ze een zoektocht naar zijn identiteit als kunstenaar, de zoektocht naar een lijn in zijn uitingen. De 12 werken in deze hebben ambiguiteit gemeen, je kunt er meerdere dingen tegelijk in zien.</p>
+		<h4>Invloeden</h4>
+		<ul><li>ArtNouveau/Jugendstil<br>(A. Mucha)</li>
+		<li>Neo-surrealisme<br>(R. Matthew, Tais Teng)</li>
+		<li>Pre-rafaelieten<br>(E. de Morgan)</li>
+		<li>Op-art<br>(B.Reilly)</li>
+		<li>DeepDream<br>(A. Mordvintsev)</li></ul>
+		<h4>Techniek</h4>
+		<p>Een samenwerking tussen computer en mens. Waarbij de computer toevalselementen toevoegt en de mens bekijkt welke elementen hij wil behouden en versterken met de digitale kwast. Schilderijen gaan keer op keer van de computer naar de mens en terug. Voor de mens, die de computer moet programmeren: een versmelting van ratio en gevoel.</p>
+		<p>Anders dan de computer kunst die we kennen, die precies is en accuraat, is deze dromerig. Het doel is de kijker te laten interpreteren wat hij ziet en ambigu te zijn.</p>
+		<h4>Persbericht</h4>
+		<p>
+Het werk in deze expositie is ontstaan uit een samenwerking
+tussen mens en computer.
+Iedere keer voegt de computer toevalselementen toe en de mens
+versterkt met de hand de elementen die hem aanspreken en verzwakt de elementen die dat niet doen.
+Zo doorloopt een schilderij soms wel meer dan vijftig fasen
+in rap tempo, waarbij noch mens, nog computer kan voorspellen
+waar het eindigt.</p>
+
+	<p>Meestal zijn er een of twee herkenbare vormen aanwezig.
+Deze gaan op in hun omgeving, die op het eerste gezicht lijkt
+te bestaan uit woeste lijnen en kleuren.
+Hoe langer de je kijkt, hoe meer je ziet.
+Mythisce figuren en verhalen die opdoemen.
+En als je even niet kijkt, zijn ze weg. </p>
+
+	<p>Dit is een andere kijk op computerkunst, die meestal precies
+en accuraat is. Deze beelden worden deels gegenereerd, 
+maar met als doel om associaties te wekken en de kijker op het verkeerde
+been te zetten, grafisch dingen met elkaar te verbinden of groeperen en
+daardoor ambigue gehouden.
+Juist het ingrijpen van de mens maakt de schilderijen
+dromerig en interessant.</p>
+</p>
+	</div>
+</section>
+<div id="hide" onClick="toggleHide()">Verberg Beschrijving</div>
+<script>
+var json=`[{
+		"img": "angel_small.jpg",
+		"title": "Angel",
+		"desc": "Na een tijdje maakte ik mijn eigen meditatie: de melk-boer meditatie. Ik kon geen engel, regenboog of chakra meer zien.",
+		"medium": "70x41,2 cm. Afgedrukt op",
+		"quote": "When you are a kid, you lay in the grass and watch the clouds going over, and you literally don/'t have a thought in your mind.It /'s purely meditation, and we lose that.",
+		"inspiration": " Ruis tot vorm."
+	},
+	{
+		"img": "death_small.jpg",
+		"title": "Death",
+		"desc": "De dood verlaat een chaotische wereld. Leven en dood hebben geen betekenis meer nu oorzaak en gevolg het aflaten. Slepen met zijn zeis begeeft de gekapte figuur zich naar de bron van de jeugd.",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "Death's gone missing, presumed... eh dead.",
+		"inspiration": "Terry Pratchett, 'Je hebt al verloren', Raagi."
+	},
+	{
+		"img": "mermaid_small.jpg",
+		"title": "Mermaid",
+		"quote": "I definitely secretly dream of being a mermaid.",
+		"desc": "De sprookjesfiguren ontstaan uit de beweging van de omgeving, zoals vaak onze fantasie de omgeving met figuren bevolkt. De hoofdfiguur is mythisch, maar lijkt echter dan de flamingo.",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"inspiration": "Wat is echt? Onfatsoenlijk gekleurde zonsondergangen, of de zon op je huid?"
+	},
+	{
+		"img": "timemachine_small.jpg",
+		"title": "Timemachine",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "I lost you all in India and now in the streams of time?",
+		"desc": "Ik had een droom over tijdreizen waarin ik uiteindelijk helemaal alleen was.",
+		"inspiration": "Droom."
+	},
+	{
+		"img": "mindworm_small.png",
+		"title": "Mindworm",
+		"desc": "Ik kon niet slapen, mijn gedachten bleven op hetzelfde punt terugkomen. Een gedachtenworm. Dit beeld vormde zich.",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "An earworm is a piece of music you cannot forget. My active imagination populates my brain with mindworms.",
+		"inspiration": "Insomnia"
+	},
+	{
+		"img": "sad_small.jpg",
+		"title": "Fantasmagorical Resting Sad-Face",
+		"desc": "Ik had moeite om gewoon verdrietig te zijn. Ik besloot mezelf te schilderen. Eerst vond ik dat ik mezelf vrolijker moest maken, toen dat ik het verdriet moest overdrijven, tenslotte probeerde ik gewoon redelijk natuurgetrouw te representeren wat er was. Dit therapeutische erkennen van het zelf heb ik opnieuw gemaakt. Dit werk werd de bron voor het werk dat u nu ziet.Ik was namelijk niet alleen verdrietig.Met het erkennen van mijn emoties kwam een enorme inspiratie.Alles wat ik zie word iets anders.Alles is een symbool.Soms is nog niet duidelijk waarvoor, ook werk ik het niet helemaal uit.Ik laat de kijker ook zijn symbolen. Wel is er wat te zoeken in dit plaatje. Wie vindt de tekkel, de twee pinguins, de twee walvissen, de walnoot, haai en Mario?",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "Melancholy is sadness that has taken on lightness",
+		"inspiration": "Verdriet maakt creatief"
+	},
+	{
+		"img": "beast_small.jpg",
+		"title": "Beast",
+		"desc": "Het beest dat ik uit de tunnel bevrijde was mijn woede. Hij kwam er oorspronkelijk uit op een groot papier. Ik had op dat moment alleen een balpen. Ik ben diverse malen door het papier gegaan. Later heb ik hem met houtskool getint, daarna digitaal naturel ingekleurd en tenslotte uitgewerkt, waarbij ik de kleurcontrasten vergrootte",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "Homo homini lupus. A wolf doesn’t concern himself with the opinions of sheep",
+		"inspiration": "Tunnel"
+	},
+	{
+		"img": "dirty_mind_small.jpg",
+		"title": "Dirty mind",
+		"desc": "Als je vrij gaat associeren kom je tegen dat je sommige vormen aantrekkelijker vind dan andere. De reden waarom is niet altijd even duidelijk. Voor mij hebben sommige vormen iets elegants of zinnelijks, zelfs als de afbeelding onschuldig is. Daarom dan maar eens met de billen bloot.",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "A dirty mind is a joy forever",
+		"inspiration": "De zinnelijkheid van een goede vorm"
+	},
+	{
+		"img": "tunnel_klein.jpg",
+		"title": "Tunnel",
+		"desc": "Op een gegeven moment zag ik licht aan het eind van de tunnel. Mijn angst nam af en dit beeld kwam boven.",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "My long lost friend, can you see the light?",
+		"inspiration": "Angstaanvallen."
+	},
+	{
+		"img": "egyptian_klein.jpg",
+		"title": "Egyptian",
+		"desc": "Cleopatra belichaamd mijn angst voor mooie mensen. Ik was hem al een tijdje kwijt, maar het is mij duidelijk dat hij hoort in het rijtje dat ik nu heb afgewerkt.",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "How DARE you and the rest of your barbarians set fire to my library? Play conqueror all you want, Mighty Caesar! Rape, murder, pillage thousands, even millions of human beings! But neither you nor any other barbarian has the right to destroy one human thought!",
+		"inspiration": "Dodenmasker van Tuntanchamon, de legendes over Cleopatra."
+	},
+	{
+		"img": "pauw_klein.jpg",
+		"title": "Pauw",
+		"desc": "Ondertussen ben ik trots op wat ik heb gemaakt. De pauw nodigt zo uit tot expressieve kleuren en vormen. Ik kon het niet laten",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "Hide like a peacock, behind your own feathers.",
+		"inspiration": "Expressionisme, trots"
+	},
+	{
+		"img": "roland_klein.jpg",
+		"title": "Roland",
+		"desc": "Roland was mijn persoonlijke pestkop een jaar lang. Met zijn bende maakte hij het schoolplein onveilig. Vooral mij moest ie hebben.Ik vocht vrijwel iedere week.",
+		"medium": "70x41,2 cm Afgedrukt op",
+		"quote": "The world is a dangerous place, because of those who look on and do nothing.",
+		"inspiration": "Pesten."
+	}
+]`;
+var paintings=JSON.parse(json);
+
+for(var i=0;i<paintings.length;i++)
+{
+	var s=document.createElement("section");
+	s.id="p"+i;
+	var p=document.createElement("div");
+	p.className="painting";
+	var img=document.createElement("img");
+	img.src=paintings[i].img;
+//	p.appendChild(img);
+	s.appendChild(p);
+	var d=document.createElement("div");
+	d.className="desc";
+	var h=document.createElement("h2");
+	h.innerHTML=paintings[i].title;
+	d.appendChild(h);
+	var b=document.createElement("div");
+	b.className="button";
+	b.innerHTML="back";
+	s.appendChild(b);
+	document.body.appendChild(s);
+	// show thumb in gallery.
+	var t=document.createElement("img");
+	t.className="thumbnail";
+	t.src=paintings[i].img;
+	t.setAttribute("data","p"+i);
+	t.addEventListener("click",show);
+	document.getElementById("thumbs").appendChild(t);
+	
+}
+
+var hide=false;
+show("gallery");
+function show(ev)
+{
+
+	var id="";
+	if(ev=="gallery") id="gallery";
+	else
+		id=ev.target.getAttribute("data");
+	var sect=document.getElementsByTagName("section");
+	for(var i=0;i< sect.length;i++)
+	{
+		if(sect[i].id==id)
+		{
+			sect[i].style.left="10px";
+		}else
+		{
+			sect[i].style.left="-100%";
+		}
+	}
+}
+function toggleHide()
+{
+	hide=!hide;
+	var desc=document.getElementsByClassName("desc");
+	for(var i=0;i< desc.length;i++)
+	{
+		if(hide)
+		{
+			console.log("hide");
+			desc[i].style.opacity=0;
+		}else{
+			console.log("show");
+			desc[i].style.opacity=1;
+		}
+	}
+	var p=document.getElementsByClassName("painting");
+	for(var i=0;i< p.length;i++)
+	{
+		if(hide)
+		{
+			console.log("hide");
+			p[i].style.width="100%";
+		}else{
+			console.log("show");
+			p[i].style.width="70%";
+		}
+	}
+	if(hide)
+	{
+		document.getElementById("hide").innerHTML="Toon beschrijving";
+	}else{
+		document.getElementById("hide").innerHTML="Verberg beschrijving";
+	}
+}
+
+</script>
+</body>
+</html>

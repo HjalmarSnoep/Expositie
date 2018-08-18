@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab:300|Merienda+One');
+body, html
+{
+	 background: #444;
+	 padding: 10px;
+	font-family: 'Merienda One', cursive;
+	overflow: hidden;
+}
+.menu{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 100%;
+	color: silver;
+}
+#hide{
+	position: absolute;
+	right: 0px;
+}
+.details
+{
+	text-align: center;
+	width: 100%;
+	background-color: rgba(255,255,255,0.1);
+	padding: 5px;
+}
+
+h1,h2{
+	font-size: 3em;
+	font-family: 'Josefin Slab', serif;
+}
+.facts
+{
+	font-family: 'Josefin Slab', serif;
+	font-size: 1.3em;
+}
+.main{
+	width: 100%;
+	height: 100%;
+	object-fit: contain ;
+}
+.thumbnail{
+	height:150px;
+	margin: 5px; 
+	object-fit: contain ;
+}
+#gallery{
+	padding-top: 35px;
+}
+.desc{
+	position: absolute;
+	right: 0px;
+	color: silver;
+	width: 20%;
+	background-color: rgba(128,128,128,0.9);
+	padding: 50px;
+	top: 5%;
+	max-height: 80%;
+	overflow-y: scroll;
+	transition: opacity 1s;
+	text-overflow: ellipsis;
+}
+.quote{
+	background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  color: black;
+  font-family: times;
+}
+.medium{
+  font-family: sans-serif;
+  font-size: 10px;
+}
+.description{
+  font-size: 12px;
+}
+.inspiration{
+  font-size: 14px;
+  font-family: 'Josefin Slab', serif;
+}
+.painting{
+	width: 70%;
+	transition: width 0.7s;
+}
+
+section{
+position: absolute;
+top: 10px;
+width: 95%;
+width: calc(100% - 10px);
+bottom: 10px;
+
+left: 10px;
+transition: left 0.7s;
+
+
+}
+.button {
+	-moz-box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	-webkit-box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
+	background:-moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
+	background-color:#768d87;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #2b665e;
+}
+.button:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
+	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
+	background-color:#6c7c7c;
+}
+.button:active {
+	position:relative;
+	top:1px;
+}
+.right{
+	float: left;
+}
+@media only screen and (max-width: 1020px) {
+.thumbnail{
+	height:100px;
+	margin: 2px; 
+}
+}
+
+@media only screen and (max-width: 500px) {
+.thumbnail{
+	height:50px;
+	margin: 2px; 
+}
+}

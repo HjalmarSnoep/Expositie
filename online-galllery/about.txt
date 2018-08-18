@@ -1,0 +1,84 @@
+Expositie: Zoektocht.
+
+12 werken, 50x70 geprint op papier.
+Digitale kunst die bedoeld is om bekeken te worden in uitgeprinte vorm.
+
+Wie ben ik als kunstenaar?
+Voor mij was het deze zoektocht. Al op de kunstacademie ben ik gaan roepen:
+"Ik ben geen kunstenaar". Ik zag niks in vrije expressie. Beelden die
+niet duidelijk communiceerden hadden voor mij geen waarde.
+Sinds 2007 ben ik geinteresseerd in Optische Illusies en kwam daar ook
+weer op-art tegen. Een tijd lang kon ik mezelf comfortabel op-art kunstenaar noemen. Ik maakte ambivalente plaatjes en illusies en animaties en had/heb daarmee redelijk succes op youtube.
+Toen kreeg ik een depressie. Ik las, dat Winston Churchill zijn depressie omschreef als een zwarte hond. Dit hielp hem om zichzelf niet te identificeren met de depressie. En ik werd aangemoedigd mijn interne beelden te versterken. Al snel kwam het beest naar voren uit de tunnel van ratio waar ik hem had weggestopt, mijn angst voor geweld, maar ook mijn woede over het geweld dat ik in mijn jeugd heb ervaren. Dit beeld heb ik geschilderd.
+Na verloop van tijd werd het beest een geruststellende aanwezigheid, maar af en toe liet hij zich zien in al zijn felheid. Ook dit heb ik getekend.
+Mijn droefheid over het overlijden van Terry Pratchett, mijn trots op mijn nieuw ontdekte schildervaardigheden. Een mythe, die ik ooit ben gaan schrijven, omdat ik me afvroeg wat de aard van verhalen is. Dromen over een tijdmachine, waardoor ik alles verloor wat me lief was en een droom over een ramp in India. De mindwormen, die alsmaar terugkomende en opkomende gedachten, die meditatie in de weg staan.
+Mijn eigen dirty mind, mijn angst voor (en fascinatie met) mooie mensen.
+Mijn schroom om deze werken naar buiten te brengen. De vraag: wat wil ik ermee?
+Gaat het me om de reactie? Nee. Ik dacht eerst van wel. 
+Ik vond het prettig om te merken dat mensen andere dingen zagen in de dingen die ik maakte. Dat ze voor meerderer interpretaties vatbaar zijn.
+
+Maar vooral wilde ik dat deze beelden er mochten zijn.
+Ik zocht een manier om mezelf te uiten, omdat ik mijn gevoel zolang had weg
+gestopt en liefst op een manier die niet schadelijk is of melodramatisch, maar leuk, mooi of prettig.. 
+Vandaar de zoekplaatjes, de uitdaging aan de kijker (en aan mezelf) om ook andere dingen te zien. 
+Een sociaal acceptabele manier om mijn innerlijke beelden naar buiten te brengen.
+
+Mijn regels voor de kunstwerken:
+12 werken
+
+ - de beelden en concepten die ik ben tegengekomen in mijn binnenste
+   dingen die naar buiten MOESTEN of dat gewoon graag wilden.
+ - Licht en kleurig door toeval. 
+   Toeval helpt me om bij deze beelden te komen. Als ik lang genoeg
+   naar marmer kijk, gevallen bladeren of ruis, komen er vanzelf
+   vormen en kleuren naar voren. Soms betekenisloos, soms zie ik er weer
+   nieuwe dingen in. 
+
+   Dit is altijd zo geweest.
+   Ik zag bijvoorbeeld overal gezichten in. (Pareidolia) en na verloop van
+   tijd merkte ik op, dat de gezichten die ik zag mijn stemming reflecteerden. Ik zag meer sombere, boze of angstige gezichten als ik me niet lekker voelde. Mijn depressie was toen al volop in de maak, maar
+ ik lachte erom en maakte er een youtube filmpje van.
+   
+   Als je schildert werk je automatisch met toeval, dit bemerkte ik door de
+   studie te maken voor 'Sad'. Een druppel hier, je schiet uit met verf
+   en er ontstaat een mini-schilderijtje.
+   Ik heb geprobeerd de soms (voor mij) zware beelden
+   lichter (en mooier) te maken door de mooie kanten in het kleine te 
+   zien.
+ - Digitaal. Ik ben geen groot schilder, maar ik heb wel 
+   een dubbele Master in computer-kunst.
+   Het toevalstekenen en schilderen is op de computer lastiger.
+   Peter Struiken maakte al 'toevalsschilderijen' door met een dobbelsteen de kleur voor het volgende vak te kiezen. Iets dergelijks moest ik voor
+mezelf creeeren wilde ik gebruik kunnen maken van het toeval en mijn interpretaties. Gelukkig biedt de wiskunde dan uitkomst.
+
+Werkwijze.
+
+   Niet alleen teken en animeer ik digitaal, ik maak ook muziek en schrijf
+   programma's. Als ik iets vaak doe, schrijf ik er een programma voor.
+   Zo ook in dit proces. Het vervormen door middel van toeval van
+   wat je hebt gemaakt en daar dan weer verder in zoeken wordt ondersteund
+   door een aantal stukken software die ik heb moeten maken.
+     - Diverse programma's om ruis te genereren. 
+       Ik wist niet dat je zoveel kon zeggen over ruis.. 
+       Roze, bruine, grijze en
+       witte ruis, perlin-ruis en fractale ruis om maar wat te noemen.
+     - Een neuraal netwerk, dat ik heb 'opgevoed' om bepaalde vormen te
+       herkennen en te versterken in bepaalde soorten ruis.
+     - Een convolutie-filter om herkende toevalsvormen te verscherpen en 
+       zichtbaar te maken door minieme ruis te versterken en terug te koppelen naar de gebruiker/kunstenaar/mezelf.
+     - Een programma dat richtingen in contrat opzoekt (equiangulare gebieden) en versterkt en helpt met het vergroten van kleine plaatjes, hetgeen weer een heel eigen soort ruis geeft, die wordt tegengegaan door S-splines. Dezelfde techniek kun je gebruiken om ruis uit te vergroten.
+   
+Maar het is niet zo.. en dat vind ik heel vervelend als mensen het zeggen.
+dat de computer daarna 'alles automatisch doet'. Zelfs niet met de software die ik heb geschreven en waaraan ik alsmaar blijf prutsen.
+Het is een wisselwerking.
+De computer maakt ruis, ik vertel hem wat (of welk gebied) hij moet versterken. Daarin poets en rommel ik wat in Photoshop en de computer voegt daar weer ruis aan toe (maar ik kies de soort ruis). Op een gegeven moment worden de platen te groot om zelf overal patronen in de ruis te zoeken. Toen heb ik programma's geschreven om kandidaten op te sporen. Maar ik neem de beslissing welke het worden en welke niet. Het is en blijft een creatief proces. Ik zie het allemaal als hulpmiddelen om contact te krijgen en houden met mijn onderbewustzijn. Sommige mensen hebben genoeg aan theebladeren, als ik het proces wil vastleggen en naar buiten brengen voelt dit voor mij comfortabeler.
+ 
+En...?
+Wie ben ik als kunstenaar? Ik weet het nog niet, maar ik ben er wel zeker
+van dat ik met deze expositie het beste heb gemaakt, dat ik op dit moment
+kan, ik heb gebruik gemaakt van jaren ervaring. Als mensen het mooi vinden of het ze wat doet, des te beter.
+Het feit dat ik deze dingen mocht laten zien brengt mij al wat. Het is therapie.
+En daarna.. we zien wel. Ik zal blijven 'schilderen' op mijn manier en ik zal nieuwe manieren vinden en toevoegen aan mijn arsenaal.
+Ook zullen er nieuwe beelden en concepten boven blijven komen.
+
+

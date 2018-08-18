@@ -1,0 +1,11 @@
+[{"title":"monkey",img:"detail01.png","x":2701,"y":3862,"w":597,"h":618},
+{"title":"dachshund",img:"detail02.png","x":3970,"y":1245,"w":603,"h":513},
+{"title":"troll",img:"detail03.png","x":2557,"y":1379,"w":690,"h":792},
+{"title":"Mario",img:"detail04.png","x":2740,"y":466,"w":996,"h":1080},
+{"title":"horse",img:"detail05.png","x":847,"y":1965,"w":1287,"h":1299},
+{"title":"penguin",img:"detail06.png","x":1957,"y":3191,"w":411,"h":387},
+{"title":"whale",img:"detail07.png","x":3145,"y":4759,"w":453,"h":669},
+{"title":"dove",img:"detail08.png","x":1651,"y":4932,"w":879,"h":783},
+{"title":"lizard",img:"detail09.png","x":4141,"y":644,"w":1107,"h":1263},
+{"title":"U.F.O.",img:"detail10.png","x":3079,"y":1147,"w":84,"h":93},
+{"title":"sailboat",img:"detail11.png","x":2581,"y":6390,"w":1068,"h":1119}]
